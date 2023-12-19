@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     function fetchFlashcards(setId) {
-        fetch(`/get-flashcards/${setId}`)
+        fetch(`/decks/${setId}/cards`)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
@@ -44,16 +44,16 @@ document.addEventListener('DOMContentLoaded', function() {
             const card = flashcards[index];
             frontSide.textContent = card.frontText;
             backSide.textContent = card.backText;
-            frontSide.style.display = 'block';
-            backSide.style.display = 'none';
+            // frontSide.style.display = 'block';
+            // backSide.style.display = 'flex';
         }
     
         // Function to flip the flashcard
-        flashcardContainer.addEventListener('click', function() {
-            const isFrontVisible = frontSide.style.display === 'block';
-            frontSide.style.display = isFrontVisible ? 'none' : 'block';
-            backSide.style.display = isFrontVisible ? 'block' : 'none';
-        });
+        // flashcardContainer.addEventListener('click', function() {
+        //     const isFrontVisible = frontSide.style.display === 'block';
+        //     frontSide.style.display = isFrontVisible ? 'none' : 'block';
+        //     backSide.style.display = isFrontVisible ? 'block' : 'none';
+        // });
     
         // Navigate to the previous card
         document.getElementById('previous').addEventListener('click', function() {

@@ -3,45 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flashcard Manager</title>
-    <link rel="stylesheet" href="/static/style.css">
+    <title>Edit All Flashcard Decks</title>
+    <link rel="stylesheet" href="/static/global-style.css"> <!-- Ensure this path is correct -->
 </head>
 <body>
-    <h1>Flashcard Manager</h1>
-    
-    <!-- Dropdown to select a flashcard set -->
-    <label for="flashcardSetDropdown">Select a Flashcard Set:</label>
-    <select id="flashcardSetDropdown">
-        <!-- Options will be added dynamically -->
-    </select>
-    <button id="studySetButton" disabled>Study Selected Set</button>
+    <header>
+        <nav>
+            <!-- Your navigation bar could go here, if you have one -->
+        </nav>
+    </header>
 
-     <!-- Form to create a new flashcard set -->
-    <section>
-        <h2>Create New Flashcard Set</h2>
-        <form id="createSetForm">
-            <input type="text" id="newSetName" placeholder="Set Name" required>
-            <button type="submit">Create Set</button>
-        </form>
-    </section>
+    <main>
+        <section class="deck-creation-section">
+            <h2>Create New Flashcard Deck</h2>
+            <form id="addDeckForm" class="deck-form">
+                <label for="newSetName">Deck Name:</label>
+                <input type="text" id="newSetName" placeholder="Enter new deck name" required>
+                <button type="submit" class="create-set-button">Create Set</button>
+            </form>
+        </section>
+        <section class="decks-editor-section">
+            <h1>Edit All Flashcard Decks</h1>
+            <div id="decks-editor" class="decks-container">
+                <!-- List of all decks and editing options will be injected here by JavaScript -->
+            </div>
+        </section>
+    </main>
 
-    <!-- Form to add a new flashcard -->
-    <section id="addFlashcardSection" style="display:none;">
-        <h2>Add Flashcard</h2>
-        <form id="addFlashcardForm">
-            <input type="text" id="frontText" placeholder="Front Text" required>
-            <input type="text" id="backText" placeholder="Back Text" required>
-            <button type="submit">Add Flashcard</button>
-        </form>
-    </section>
+    <footer>
+        <!-- Your footer content could go here -->
+    </footer>
 
-    <!-- List of flashcards in the selected set -->
-    <section id="flashcardsListSection" style="display:none;">
-        <h2>Flashcards</h2>
-        <ul id="flashcardsList">
-            <!-- Flashcards will be listed here -->
-        </ul>
-    </section>
-    <script src="/static/app.js"></script>
+    <script src="/static/app.js"></script> <!-- Ensure this path is correct -->
 </body>
 </html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Flashcard Deck</title>
+    <link rel="stylesheet" href="../global-style.css"> <!-- Global styles -->
+    <!-- <link rel="stylesheet" href="edit-deck-style.css"> Edit deck specific styles -->
+</head>
+<body>
+    <!-- Form to add a new flashcard -->
+    <section id="addFlashcardSection">
+        <h2>Add Flashcard</h2>
+        <form id="addFlashcardForm">
+            <input type="text" id="frontText" placeholder="Front Text" required>
+            <input type="text" id="backText" placeholder="Back Text" required>
+            <button type="submit">Add Flashcard</button>
+        </form>
+    </section>
+    <section id="flashcardsListSection">
+        <h2>Flashcards</h2>
+        <ul id="flashcardsList">
+            <!-- Flashcards will be listed here -->
+        </ul>
+    </section>
+    <div id="autoPopulatePanel">
+        <h2>Auto Populate</h2>
+        <button id="AutoPopulate">Auto Populate</button>
+        <div id="autoPopulateflashcardsSection"></div>
+        <button id="generate-button">Generate Flashcard</button>
+    </div>
+    
+    <script src="/static/edit_deck/edit_deck.js"></script>
+</body>
+</html>
