@@ -1,0 +1,27 @@
+[tool.poetry]
+name = "flashcard_generator"
+version = "0.1.0"
+description = ""
+authors = ["colton <cflowers.flowers@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.12"
+flask = "^2.0.2"
+wikipedia = "^1.4.0"
+wikipedia-api = "^0.5.4"
+langchain = "*"
+spacy = "*"
+llama-cpp-python = "*"
+flask_cors = "*"
+flask_celery = "*"
+redis = "*"
+
+[tool.poetry.dependencies.en_core_web_sm]
+url = "https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.7.1/en_core_web_sm-3.7.1.tar.gz"
+
+[tool.poetry.dev-dependencies]
+pytest = "^5.2"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

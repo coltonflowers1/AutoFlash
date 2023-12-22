@@ -56,6 +56,7 @@ document.addEventListener('DOMContentLoaded', function () {
             .catch(error => console.error('Failed to delete deck:', error));
     }
 
+
     // Event listener for adding a new deck
     addDeckForm.addEventListener('submit', function (event) {
         event.preventDefault();

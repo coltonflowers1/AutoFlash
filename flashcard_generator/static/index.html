@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wikipedia Autocomplete</title>
+    <link rel="stylesheet" href="global-style.css"> <!-- Ensure this path is correct -->
+</head>
+<body>
+    <header>
+        <nav>
+            <!-- Your navigation bar could go here, if you have one -->
+        </nav>
+    </header>
+
+    <main>
+        <div class="topic-container">
+            <div id="topic-input">
+                <label for="autocomplete">What would you like to learn about?</label>
+                <input id="autocomplete">
+                <ul id="concept-list"></ul>
+            </div>
+            <div class="topic-selection" style="display:none;">
+                <h2>Topic: <span id="topic"></span></h2>
+                <button id="edit-button">Edit</button>
+            </div>
+        </div>
+        <label for="number-input">Number of Cards (Max: 100):</label>
+        <input id="number-input" type="number" min="0" max="100">
+        <button id="generate-button">Generate</button>
+        <svg id="progress-wheel" style="display: none;" viewBox="0 0 50 50">
+            <circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle>
+        </svg>
+        <div id="flashcards"></div>
+        <p id="status"></p>
+    </main>
+
+    <footer>
+        <!-- Your footer content could go here -->
+    </footer>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="app.js"></script> <!-- Ensure this path is correct -->
+</body>
+</html>
