@@ -1,29 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit All Flashcard Decks</title>
     <link rel="stylesheet" href="/static/global-style.css"> <!-- Ensure this path is correct -->
+    <link rel="stylesheet" href="/static/main.css"> <!-- Ensure this path is correct -->
 </head>
+
 <body>
     <header>
-        <nav>
-            <!-- Your navigation bar could go here, if you have one -->
-        </nav>
     </header>
 
-    <main>
-        <section class="deck-creation-section">
-            <h2>Create New Flashcard Deck</h2>
-            <form id="addDeckForm" class="deck-form">
-                <label for="newSetName">Deck Name:</label>
-                <input type="text" id="newSetName" placeholder="Enter new deck name" required>
-                <button type="submit" class="create-set-button">Create Set</button>
-            </form>
+    <main id="main-container">
+        <section id="deck-creation-section">
+            <nav>
+                <button id="blankCreateDeckButton">Create Blank Deck</button>
+                <button id="autoCreateDeckButton">Auto-generate Deck</button>
+            </nav>
+            <section id="autocreate" style="display:none;">
+                <section class="topic-container">
+                    <div id="topic-input">
+                        <label for="autocomplete">What would you like to learn about?</label>
+                        <input id="autocomplete">
+                        <ul id="concept-list"></ul>
+                    </div>
+                    <div class="topic-selection" style="display:none;">
+                        <h2>Topic: <span id="topic"></span></h2>
+
+                        <button id="edit-button">Edit</button>
+                    </div>
+                    <label for="number-input">Number of Cards (Max: 100):</label>
+                    <input id="number-input" type="number" min="0" max="100">
+                    <button id="generate-button">Generate</button>
+                    <p id="status"></p>
+                    <svg id="progress-wheel" style="display: none;" viewBox="0 0 50 50">
+                        <circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle>
+                    </svg>
+                </section>
+            </section>
+            <section id="blankCreate" style="display:none;">
+                <form id="createDeckForm">
+                    <input type="text" id="deckName" placeholder="Deck Name" required>
+                    <button type="submit">Create Deck</button>
+                </form>
+            </section>
         </section>
-        <section class="decks-editor-section">
-            <h1>Edit All Flashcard Decks</h1>
+        <section id="flashcardContainer" >
+            <h1>Your Decks</h1>
             <div id="decks-editor" class="decks-container">
                 <!-- List of all decks and editing options will be injected here by JavaScript -->
             </div>
@@ -33,7 +58,10 @@
     <footer>
         <!-- Your footer content could go here -->
     </footer>
-
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="/static/app.js"></script> <!-- Ensure this path is correct -->
 </body>
+
 </html>

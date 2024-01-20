@@ -1,0 +1,3 @@
+- Make sure you have MONGO_PASSWORD set
+- Make sure you have launched the flashcard generation server
+- Launch the app. 

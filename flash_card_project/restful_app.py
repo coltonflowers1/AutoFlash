@@ -33,37 +33,14 @@ def serve_static(filename):
 
 @route("/decks", method="GET")
 def get_decks():
-    """
-    Add a card to a deck
-    ---
-    parameters:
-      - name: id
-        in: path
-        type: string
-        required: true
-        description: The id of the deck
-      - in: body
-        name: body
-        schema:
-          id: Card
-          required:
-            - front
-            - back
-          properties:
-            front:
-              type: string
-              description: The front for the card
-            back:
-              type: string
-              description: The back for the card
-    responses:
-      200:
-        description: Card added to deck
-    """
-    decks = list(decks_collection.find())
-    # for deck in decks:
-    #     deck["_id"] = str(deck["_id"])
-    return parse_json(decks)
+  """
+  Retrieves all decks from the database.
+
+  Returns:
+    list: A list of decks.
+  """
+  decks = list(decks_collection.find())
+  return parse_json(decks)
 
 
 @route("/decks/<id>")
@@ -89,8 +66,7 @@ def get_deck(id):
     response.status = 404
     return {"error": "Flashcard deck not found"}
 
-
-@post("/decks")
+@put("/decks")
 def create_deck():
     """
     Create a new flashcard deck
@@ -104,30 +80,60 @@ def create_deck():
             - name
           properties:
             name:
-              type: string
-              description: The name of the deck
             cards:
               type: array
               items:
                 type: object
                 properties:
-                  front:
+                  question:
                     type: string
-                  back:
+                  answer:
                     type: string
-    responses:
-      200:
-        description: Flashcard deck created
     """
     deck = request.json
-    if deck.get("cards") is None:
-        deck["cards"] = []
+    deck['cards'] = [{**card, '_id': ObjectId()} for card in deck.get('cards', [])]
     result = decks_collection.insert_one(deck)
-    # deck["_id"] = str(result.inserted_id)
-    return parse_json(deck)
+    deck["_id"] = str(result.inserted_id)
+    return {"message": "Flashcard deck created","_id": deck["_id"]}
+
+# @put("/decks")
+# def create_deck():
+#     """
+#     Create a new flashcard deck
+#     ---
+#     parameters:
+#       - in: body
+#         name: body
+#         schema:
+#           id: Deck
+#           required:
+#             - name
+#           properties:
+#             name:
+#               type: string
+#               description: The name of the deck
+#             cards:
+#               type: array
+#               items:
+#                 type: object
+#                 properties:
+#                   front:
+#                     type: string
+#                   back:
+#                     type: string
+#     responses:
+#       200:
+#         description: Flashcard deck created
+#     """
+#     deck = request.json
+#     if deck.get("cards") is None:
+#         deck["cards"] = []
+#     result = decks_collection.insert_one(deck)
+#     # deck["_id"] = str(result.inserted_id)
+#     return parse_json(deck)
 
 
-@put("/decks/<id>")
+@post("/decks/<id>")
 def update_deck(id):
     """
     Update a flashcard deck
@@ -207,7 +213,7 @@ def get_cards_from_deck(id):
     return {"error": "Flashcard deck not found"}
 
 
-@route("/decks/<id>/cards", method="POST")
+@post("/decks/<id>/cards")
 def add_card_to_deck(id):
     """
     Add a card to a deck
@@ -276,7 +282,7 @@ def delete_card_from_deck(deck_id, card_id):
     return {"message": "Card deleted from flashcard deck"}
 
 
-@put("/decks/<deck_id>/cards/<card_id>")
+@post("/decks/<deck_id>/cards/<card_id>")
 def update_card_in_deck(deck_id, card_id):
     """
     Update a card in a deck

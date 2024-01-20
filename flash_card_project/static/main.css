@@ -1,0 +1,142 @@
+.deck-creation-section,
+.decks-editor-section {
+    background: #fff;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+}
+
+.deck-form label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.deck-form input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+}
+
+.create-set-button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    border: none;
+    background: #5cb85c;
+    color: white;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.create-set-button:hover {
+    background: #4cae4c;
+}
+
+#main-container {
+    display: flex;
+}
+.deck {
+    position: relative;
+    border: 1px solid var(--secondary-color);
+    padding: 10px;
+    border-radius: 4px;
+    width: 200px;  /* Adjust as needed */
+    height: 200px; /* Adjust as needed */
+    cursor: pointer;
+    background: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.decks-container {
+    display: grid;
+    margin-top: 20px;
+    height: calc(100vh - 60px - 40px);
+    border: 1px solid var(--secondary-color);
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+#deck-creation-section {
+    border: 1px solid var(--secondary-color);
+    padding-left: 10px;
+    flex: 1;
+
+}
+.button-container {
+    position: absolute;
+    bottom:0;
+    left:0;
+    width: 100%; 
+    box-sizing: border-box; /* Added */
+    
+}
+
+.study-button , .edit-button {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    cursor: pointer;
+    height: 100%;  /* Added to make the buttons' height relative to the container */
+    box-sizing: border-box; /* Added */
+}
+
+.study-button {
+    margin-right: 10px;
+}
+
+.delete-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: none;
+    border: none;
+    color: red;
+    font-size: 1.2em;
+    cursor: pointer;
+}
+
+#flashcardContainer {
+    border: 1px solid var(--secondary-color);
+    padding-left: 20px;
+    flex: 2;
+}
+#decks-editor {
+    max-height: 500px;
+    /* Adjust as needed */
+    overflow-y: auto;
+}
+
+.topic-selection h2 {
+    display: inline-block;
+}
+
+.topic-selection button {
+    display: inline-block;
+}
+
+#progress-wheel .path {
+    stroke: #3498db; /* Blue */
+    stroke-linecap: round;
+    
+    /* animation: spin 2s linear infinite, draw 1.5s ease-in-out infinite; */
+}
+#progress-wheel {
+    width: 25px; /* Adjust as needed */
+    height: 25px; /* Adjust as needed */
+    
+    /* animation: spin 2s linear infinite, draw 1.5s ease-in-out infinite; */
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes draw {
+    0% { stroke-dasharray: 1, 150; stroke-dashoffset: 0; }
+    50% { stroke-dasharray: 90, 150; stroke-dashoffset: -35; }
+    100% { stroke-dasharray: 90, 150; stroke-dashoffset: -124; }
+}
