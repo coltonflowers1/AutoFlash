@@ -35,7 +35,7 @@ examples = [
         "previous_sentence": "Four years later in November 1799, the Consulate seized power in a military coup led by Napoleon Bonaparte.",
         "sentence": "A financial crisis and widespread social distress led, in May 1789, to the convocation of the Estates General which was converted into a National Assembly in June.",
         "answer": "Estates General",
-        "question": "What event did financial crisis and widespread social distress lead to in May 1789?"
+        "question": "A financial crisis and widespread social distress led to the convocation of what in May 1789?"
          
     },
     {
@@ -67,6 +67,7 @@ examples = [
         "question": "Machine learning and which other discipline aim to synthesize goal-oriented processes found in humans and animals?",
     }
 ]
+
 
 eg_template = """
 topic: {topic}
@@ -114,22 +115,21 @@ def _get_flashcards(topic)->Generator[tuple[str,str],None,None]:
             previous_sentence = paragraph[i][0]
             sentence,hyperlinks = paragraph[i+1]
             if len(hyperlinks) > 0:
-                hyperlinked_text,hyperlinked_page_title = hyperlinks[0]
+                hyperlink = hyperlinks[0]
                 if sentence != "" and previous_sentence!="" and len(sentence) + len(previous_sentence) < 500:
                     try:
-                        question,_ =  get_flashcard(topic,previous_sentence,sentence,hyperlinked_text)
+                        question,_ =  get_flashcard(topic,previous_sentence,sentence,hyperlink)
                         # print(question,hyperlink)
                         # print(question)
                         if "which of the following" not in question.lower() and "known for" not in question and "what is true" not in  question.lower() and "sentence" not in  question.lower() and "refers to" not in  question.lower() and "refered to" not in  question.lower() and "this" not in question.lower():
-                            if hyperlinked_text.lower() not in question.lower():
+                            if hyperlink.lower() not in question.lower():
                                 print(
                                       previous_sentence+"\n-------------------\n",
                                       sentence+"\n-------------------\n",
                                       question+"\n-------------------\n",
-                                      hyperlinked_text+"\n-------------------\n",
-                                      hyperlinked_page_title+"\n\n\n"
+                                      hyperlink+"\n\n\n"
                                       )
-                                yield question,hyperlinked_page_title
+                                yield question,hyperlink
                     except:
                         continue
                 

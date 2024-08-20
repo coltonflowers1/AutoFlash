@@ -1,7 +1,9 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from celery import Celery
-from flashcard_generator.wikipedia_generator import get_flashcards
+# from flashcard_generator.wikipedia_generator import get_flashcards
+# from flashcard_generator.wiki_hyperlink_generator import get_flashcards
+from flashcard_generator.fill_in_the_blank import get_flashcards
 import requests
 
 app = Flask(__name__)

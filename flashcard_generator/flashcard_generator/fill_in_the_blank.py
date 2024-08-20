@@ -33,25 +33,24 @@ examples = [
     {
         "topic": "French Revolution",
         "previous_sentence": "Four years later in November 1799, the Consulate seized power in a military coup led by Napoleon Bonaparte.",
-        "sentence": "A financial crisis and widespread social distress led, in May 1789, to the convocation of the Estates General which was converted into a National Assembly in June.",
+        "sentence": "A financial crisis and widespread social distress led, in May 1789, to the convocation of the [_] which was converted into a National Assembly in June.",
         "answer": "Estates General",
-        "question": "What event did financial crisis and widespread social distress lead to in May 1789?"
-         
+        "question": "What did financial crisis and widespread social distress lead to in May 1789?"
     },
     {
         "topic": "Bell's Theorem",
         "previous_sentence": "Bell's theorem is a no-go theorem that draws an important distinction between quantum mechanics (QM) and the world as described by classical mechanics, particularly concerning quantum entanglement.",
-        "sentence": 'The term is broadly applied to a number of different derivations, the first of which was introduced by Bell in a 1964 paper titled "On the Einstein Podolsky Rosen Paradox."',
+        "sentence": 'The term is broadly applied to a number of different derivations, the first of which was introduced by Bell in a 1964 paper titled "On the [_]."',
         "answer":'Einstein Podolsky Rosen Paradox',
         "question": 'Bell introduced a derivation in a 1964 paper titled "On the __?',
     },
-    # {
-    #     "topic": "Functional group",
-    #     "previous_sentence": "Functional groups can also be charged, e.g. in carboxylate salts (−COO−), which turns the molecule into a polyatomic ion or a complex ion.",
-    #     "sentence":'For example, sugar dissolves in water because both share the hydroxyl functional group (−OH) and hydroxyls interact strongly with each other.',
-    #     "answer": "hydroxyl",
-    #     "question": "What functional group do sugar and water share?",
-    # },
+    {
+        "topic": "Functional group",
+        "previous_sentence": "Functional groups can also be charged, e.g. in carboxylate salts (−COO−), which turns the molecule into a polyatomic ion or a complex ion.",
+        "sentence":'For example, sugar dissolves in water because both share the [_] functional group (−OH) and hydroxyls interact strongly with each other.',
+        "answer": "hydroxyl",
+        "question": "What functional group do sugar and water share?",
+    },
     # {
     #     "topic": "Computer Science",
     #     "previous_sentence": "Computer science is the study of computation, information, and automation.[1][2][3]",
@@ -62,7 +61,7 @@ examples = [
     {
         "topic": "Computer Science",
         "previous_sentence": "Computer architecture describes the construction of computer components and computer-operated equipment.",
-        "sentence":'Artificial intelligence and machine learning aim to synthesize goal-orientated processes such as problem-solving, decision-making, environmental adaptation, planning and learning found in humans and animals.',
+        "sentence":'[_] and machine learning aim to synthesize goal-orientated processes such as problem-solving, decision-making, environmental adaptation, planning and learning found in humans and animals.',
         "answer": "Artificial intelligence",
         "question": "Machine learning and which other discipline aim to synthesize goal-oriented processes found in humans and animals?",
     }
@@ -108,31 +107,34 @@ def get_flashcard(topic, previous_sentence,sentence,answer):
 
 def _get_flashcards(topic)->Generator[tuple[str,str],None,None]:
     hyperlinked_page = get_hyperlinked_page(topic)
-    for paragraph in hyperlinked_page:
-        # print(paragraph)
-        for i in range(len(paragraph)-1):
-            previous_sentence = paragraph[i][0]
-            sentence,hyperlinks = paragraph[i+1]
-            if len(hyperlinks) > 0:
-                hyperlinked_text,hyperlinked_page_title = hyperlinks[0]
-                if sentence != "" and previous_sentence!="" and len(sentence) + len(previous_sentence) < 500:
-                    try:
-                        question,_ =  get_flashcard(topic,previous_sentence,sentence,hyperlinked_text)
-                        # print(question,hyperlink)
-                        # print(question)
-                        if "which of the following" not in question.lower() and "known for" not in question and "what is true" not in  question.lower() and "sentence" not in  question.lower() and "refers to" not in  question.lower() and "refered to" not in  question.lower() and "this" not in question.lower():
-                            if hyperlinked_text.lower() not in question.lower():
-                                print(
-                                      previous_sentence+"\n-------------------\n",
-                                      sentence+"\n-------------------\n",
-                                      question+"\n-------------------\n",
-                                      hyperlinked_text+"\n-------------------\n",
-                                      hyperlinked_page_title+"\n\n\n"
-                                      )
-                                yield question,hyperlinked_page_title
-                    except:
-                        continue
-                
+    sentences = [sentence for paragraph in hyperlinked_page for sentence in paragraph]
+    for i in range(len(sentences)-1):
+        previous_sentence,_ = sentences[i]
+        sentence,hyperlinks =sentences[i+1]
+       
+        if len(hyperlinks) > 0:
+            hyperlinked_text,hyperlinked_page_title,offsets = hyperlinks[0]
+            print(sentence,hyperlinks)
+            if sentence != "" and previous_sentence!="" and len(sentence) + len(previous_sentence) < 500:
+                try:
+                    # hyperlinked_sentence = sentence[:offsets[0]] + "[" + sentence[offsets[0]:offsets[1]] + "]" + sentence[offsets[1]:]
+                    hyperlinked_sentence = sentence[:offsets[0]] + "[_]" + sentence[offsets[1]:]
+                    question,_ =  get_flashcard(topic,previous_sentence.strip(),hyperlinked_sentence.strip(),hyperlinked_text)
+                    # print(question,hyperlink)
+                    # print(question)
+                    if "which of the following" not in question.lower() and "known for" not in question and "what is true" not in  question.lower() and "sentence" not in  question.lower() and "refers to" not in  question.lower() and "refered to" not in  question.lower() and "this" not in question.lower():
+                        if hyperlinked_text.lower() not in question.lower():
+                            print(
+                                    previous_sentence.strip()+"\n-------------------\n",
+                                    hyperlinked_sentence.strip()+"\n-------------------\n",
+                                    question+"\n-------------------\n",
+                                    hyperlinked_text+"\n-------------------\n",
+                                    hyperlinked_page_title+"\n\n\n"
+                                    )
+                            yield question,hyperlinked_text
+                except:
+                    continue
+            
                 
                     
 def get_flashcards(topic, num_flashcards=10):
@@ -140,7 +142,7 @@ def get_flashcards(topic, num_flashcards=10):
         yield {"front": flashcard[0], "back": flashcard[1]}
 
 if __name__ == "__main__":
-    flashcards = get_flashcards("Easter",num_flashcards=20)
+    flashcards = get_flashcards("Two Generals' Problem",num_flashcards=30  )
     for flashcard in flashcards:
         pass
         # print(f"{flashcard["front"]}\n{flashcard["back"]}\n-------------------")

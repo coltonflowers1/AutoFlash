@@ -15,6 +15,7 @@ from bottle import (
 from flash_card_project.mongodb_connect import db
 from bson.objectid import ObjectId
 
+
 decks_collection = db["decks"]
 
 def parse_json(data):

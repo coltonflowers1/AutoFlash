@@ -15,4 +15,4 @@ start-celery:
 launch-card-generator-app:
 	poetry run python flashcard_generator/app.py
 
-launch-card-generator: install-cg-env start-redis start-celery launch-card-generator-app
+launch-card-generator: start-redis start-celery launch-card-generator-app
